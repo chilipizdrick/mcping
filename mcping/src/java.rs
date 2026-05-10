@@ -88,7 +88,7 @@ impl Pingable for Java {
 /// The server status reponse
 ///
 /// More information can be found [here](https://wiki.vg/Server_List_Ping).
-#[derive(Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct JavaResponse {
     /// The version of the server.
     pub version: Version,
@@ -101,7 +101,7 @@ pub struct JavaResponse {
 }
 
 /// Information about the server's version
-#[derive(Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct Version {
     /// The name of the version the server is running
     ///
@@ -112,7 +112,7 @@ pub struct Version {
 }
 
 /// An online player of the server.
-#[derive(Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct Player {
     /// The name of the player.
     pub name: String,
@@ -121,7 +121,7 @@ pub struct Player {
 }
 
 /// The stats for players on the server.
-#[derive(Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct Players {
     /// The max amount of players.
     pub max: i64,
@@ -135,7 +135,7 @@ pub struct Players {
 
 /// This is a partial implemenation of a Minecraft chat component limited to just text
 // TODO: Finish this object.
-#[derive(Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 #[serde(untagged)]
 pub enum Chat {
     Text { text: String },
