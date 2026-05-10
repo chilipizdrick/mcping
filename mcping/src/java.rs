@@ -50,7 +50,7 @@ pub struct Java {
 impl Pingable for Java {
     type Response = JavaResponse;
 
-    fn ping(self) -> Result<(u64, Self::Response), crate::Error> {
+    fn ping(&self) -> Result<(u64, Self::Response), crate::Error> {
         let mut conn = Connection::new(&self.server_address, self.timeout)?;
 
         // Handshake

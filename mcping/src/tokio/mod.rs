@@ -12,7 +12,7 @@ pub trait AsyncPingable {
     type Response;
 
     /// Ping the entity, gathering the latency and response.
-    async fn ping(self) -> Result<(u64, Self::Response), Error>;
+    async fn ping(&self) -> Result<(u64, Self::Response), Error>;
 }
 
 /// Retrieve the status of a given Minecraft server using a `AsyncPingable` configuration.
@@ -51,6 +51,6 @@ pub trait AsyncPingable {
 /// # Ok::<(), mcping::Error>(())
 /// # };
 /// ```
-pub async fn get_status<P: AsyncPingable>(pingable: P) -> Result<(u64, P::Response), Error> {
+pub async fn get_status<P: AsyncPingable>(pingable: &P) -> Result<(u64, P::Response), Error> {
     pingable.ping().await
 }

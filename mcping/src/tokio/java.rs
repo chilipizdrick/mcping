@@ -19,7 +19,7 @@ use crate::{java::Packet, tokio::AsyncPingable, Error, Java, JavaResponse};
 impl AsyncPingable for Java {
     type Response = JavaResponse;
 
-    async fn ping(self) -> Result<(u64, Self::Response), crate::Error> {
+    async fn ping(&self) -> Result<(u64, Self::Response), crate::Error> {
         let mut conn = Connection::new(&self.server_address, self.timeout).await?;
 
         // Handshake

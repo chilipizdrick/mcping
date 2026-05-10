@@ -23,7 +23,7 @@ use crate::{
 impl AsyncPingable for Bedrock {
     type Response = BedrockResponse;
 
-    async fn ping(self) -> Result<(u64, Self::Response), Error> {
+    async fn ping(&self) -> Result<(u64, Self::Response), Error> {
         let mut connection =
             Connection::new(&self.server_address, &self.socket_addresses, self.timeout).await?;
 

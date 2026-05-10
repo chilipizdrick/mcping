@@ -84,7 +84,7 @@ impl Default for Bedrock {
 impl Pingable for Bedrock {
     type Response = BedrockResponse;
 
-    fn ping(self) -> Result<(u64, Self::Response), Error> {
+    fn ping(&self) -> Result<(u64, Self::Response), Error> {
         let mut connection =
             Connection::new(&self.server_address, &self.socket_addresses, self.timeout)?;
 

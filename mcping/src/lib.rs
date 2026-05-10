@@ -38,7 +38,7 @@ pub trait Pingable {
     type Response;
 
     /// Ping the entity, gathering the latency and response.
-    fn ping(self) -> Result<(u64, Self::Response), Error>;
+    fn ping(&self) -> Result<(u64, Self::Response), Error>;
 }
 
 /// Retrieve the status of a given Minecraft server using a `Pingable` configuration.
@@ -73,6 +73,6 @@ pub trait Pingable {
 /// })?;
 /// # Ok::<(), mcping::Error>(())
 /// ```
-pub fn get_status<P: Pingable>(pingable: P) -> Result<(u64, P::Response), Error> {
+pub fn get_status<P: Pingable>(pingable: &P) -> Result<(u64, P::Response), Error> {
     pingable.ping()
 }
