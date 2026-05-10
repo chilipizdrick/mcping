@@ -161,12 +161,12 @@ trait ReadJavaExt: Read + ReadBytesExt {
                 return Ok(res);
             }
         }
-        Err(io::Error::new(io::ErrorKind::Other, "VarInt too big!"))
+        Err(io::Error::other("VarInt too big!"))
     }
 
     fn read_string(&mut self) -> io::Result<String> {
         let len = self.read_varint()? as usize;
-        let mut buf = vec![0; len as usize];
+        let mut buf = vec![0; len];
         self.read_exact(&mut buf)?;
         Ok(String::from_utf8(buf).expect("Invalid UTF-8 String."))
     }
@@ -184,7 +184,7 @@ trait WriteJavaExt: Write + WriteBytesExt {
             self.write_u8((val & 0x7F | 0x80) as u8)?;
             val >>= 7;
         }
-        Err(io::Error::new(io::ErrorKind::Other, "VarInt too big!"))
+        Err(io::Error::other("VarInt too big!"))
     }
 
     fn write_string(&mut self, s: &str) -> io::Result<()> {
@@ -276,7 +276,7 @@ impl Connection {
             stream: if let Some(timeout) = timeout {
                 TcpStream::connect_timeout(&socket_addr, timeout)?
             } else {
-                TcpStream::connect(&socket_addr)?
+                TcpStream::connect(socket_addr)?
             },
             host,
             port,
